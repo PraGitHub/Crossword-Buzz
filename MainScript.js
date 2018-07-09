@@ -1,5 +1,6 @@
 var express = require('express');
 var bodyParser = require('body-parser');
+var helper = require(__dirname+'/HelperFunctions.js');
 var app = express();
 var httpPort = 8085;
 
@@ -38,4 +39,21 @@ app.listen(httpPort,function(err,res){
 
 app.get('/',function(httpReq,httpRes){
     httpRes.sendFile(__dirname+'/HomePage.html');
+});
+
+app.post('/Contribute',function(httpReq,httpRes){
+    var strWord = httpReq.body.Word;
+    strWord = strWord.toUpperCase();
+    var strDesctription = httpReq.body.Description;
+    if(helper.IsLegibleWord(strWord) == true){
+
+    }
+    else{
+        httpRes.redirect('/InvalidWord');
+    }
+
+});
+
+app.get('/InvalidWord',function(httpReq,httpRes){
+    httpRes.sendFile(__dirname+'/InvalidWord.html');
 });
