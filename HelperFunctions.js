@@ -8,4 +8,4 @@ var fpIsValidDescription = function IsValidDescription(strDescription){
 }
 
 module.exports.IsValidWord = fpIsValidWord;
-module.exports.IsValidDescription = fpValidDescription;
+module.exports.IsValidDescription = fpIsValidDescription;
