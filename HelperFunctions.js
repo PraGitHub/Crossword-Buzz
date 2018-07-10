@@ -1,5 +1,11 @@
-var fpIsLegibleWord = function IsLegibleWord(strWord){
+var fpIsValidWord = function IsValidWord(strWord){
     return /^[A-Z]+$/.test(strWord);
 }
 
-module.exports.IsLegibleWord = fpIsLegibleWord;
+var fpIsValidDescription = function IsValidDescription(strDescription){
+    //yet to implement
+    return true;
+}
+
+module.exports.IsValidWord = fpIsValidWord;
+module.exports.IsValidDescription = fpValidDescription;

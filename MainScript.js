@@ -45,8 +45,13 @@ app.post('/Contribute',function(httpReq,httpRes){
     var strWord = httpReq.body.Word;
     strWord = strWord.toUpperCase();
     var strDesctription = httpReq.body.Description;
-    if(helper.IsLegibleWord(strWord) == true){
+    if(helper.IsValidWord(strWord) == true){
+        if(helper.IsValidDescription(strDesctription) == true){
 
+        }
+        else{
+            httpres.redirect('/InvalidDescription');
+        }
     }
     else{
         httpRes.redirect('/InvalidWord');
@@ -56,4 +61,8 @@ app.post('/Contribute',function(httpReq,httpRes){
 
 app.get('/InvalidWord',function(httpReq,httpRes){
     httpRes.sendFile(__dirname+'/InvalidWord.html');
+});
+
+app.get('/InvalidDescription',function(httpReq,httpRes){
+    httpRes.sendFile(__dirname+'/InvalidDescription.html');
 });
