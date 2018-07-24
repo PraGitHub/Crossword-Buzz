@@ -1,21 +1,9 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var helper = require(__dirname+'/HelperFunctions.js');
+var dbHandler = require(__dirname+'/DatabaseHandler.js');
 var app = express();
 var httpPort = 8085;
-
-var dbURL = "mongodb://localhost:27017/";
-var mongoClient = require('mongodb').MongoClient;
-mongoClient.connect(dbURL, function (err, db) {
-    if (err) throw err;
-    console.log("DB Strated...");
-    dbObject = db.db("PraDBObject2");
-    dbObject.createCollection("CrosswordData", function (err, res) {
-        if (err) throw err;
-        console.log("CrosswordData Collection Created...")
-    });
-    dbCommonCollection = dbObject.collection("CrosswordData");
-});
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true })); 
@@ -47,7 +35,16 @@ app.post('/Contribute',function(httpReq,httpRes){
     var strDesctription = httpReq.body.Description;
     if(helper.IsValidWord(strWord) == true){
         if(helper.IsValidDescription(strDesctription) == true){
-
+            var JSONToInsert = {
+                word:httpReq.body.Word,
+                description:httpReq.body.Description
+            };
+            if(dbHandler.Insert(JSONToInsert) == true){
+                httpRes.redirect('/WordAddSuccess');
+            }
+            else{
+                httpRes.redirect('/WordAddFail');
+            }
         }
         else{
             httpres.redirect('/InvalidDescription');
@@ -65,4 +62,12 @@ app.get('/InvalidWord',function(httpReq,httpRes){
 
 app.get('/InvalidDescription',function(httpReq,httpRes){
     httpRes.sendFile(__dirname+'/InvalidDescription.html');
+});
+
+app.get('/WordAddSuccess',function(httpReq,httpRes){
+    httpRes.sendFile(__dirname+'/WordAddSuccess.html');
+});
+
+app.get('/WordAddFail',function(httpReq,httpRes){
+    httpRes.sendFile(__dirname+'/WordAddFail.html');
 });
