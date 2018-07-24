@@ -6,4 +6,4 @@ How to use ?
     run 'npm install'
     run 'node MainScript.js'
 
-BTW, make sure that you install nodejs before all
+Make sure that you install nodejs before all
