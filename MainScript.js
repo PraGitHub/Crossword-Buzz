@@ -22,7 +22,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 for (let i = 0; i < process.argv.length;i++) {
     //console.log(process.argv[i]);
-    if (process.argv[i].indexOf('-port:') == 0) {
+    if (process.argv[i].indexOf('-port=') == 0) {
         httpPort = process.argv[i].substring(6);
         //console.log(httpPort);
     }
