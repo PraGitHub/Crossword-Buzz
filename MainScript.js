@@ -37,7 +37,10 @@ app.post('/Contribute',function(httpReq,httpRes){
         if(helper.IsValidDescription(strDesctription) == true){
             var JSONToInsert = {
                 word:httpReq.body.Word,
-                description:httpReq.body.Description
+                description:httpReq.body.Description,
+                startLetter:'',
+                endLetter:'',
+                length:0
             };
             if(dbHandler.Insert(JSONToInsert) == true){
                 httpRes.redirect('/WordAddSuccess');
